@@ -149,8 +149,8 @@ generateButton.addEventListener('click', function() {
             }
 
             if (min) {
-                toSend['min'] = min.value
-                toSend['max'] = max.value
+                toSend['min'] = Number(min.value)
+                toSend['max'] = Number(max.value)
             }
 
             if (format) {
