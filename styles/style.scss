@@ -1,3 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+@import "../extra/fontawesome/scss/fontawesome.scss";
+@import "../extra/fontawesome/scss/solid.scss"; 
+@import "../extra/fontawesome/scss/brands.scss"; 
+
+@mixin buttonStyle($width, $heigth) {
+    width: 2.2em;
+    height: 2.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    background: #efefef;
+    border-radius: 8px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: background-color 0.5s ease;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #dcdcdc;
+    }
+}
+
 * {
+    
+}
+
+body {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    font-family: 'Lato', sans-serif;
+    background-color: rgb(173, 173, 173);
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+section {
+    //border: dotted red;
+    height: 75vh;
+    width: 25em;
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    background-color: #cccccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+    &.info div {
+        padding-bottom: 1em;
+    }
+
+    & #buttonsDiv {
+        margin-bottom: 2em;
+        overflow: auto;
+    }
+    
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 3em;
+    padding-bottom: 1em;
+}
+
+h3 {
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.5em;
+}
+
+.subtitle {
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2em;
+    padding-bottom: 0.5em;
+}
+
+.divisorDiv {
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 7px;
+    background-color: rgb(233, 233, 233);
+    
+
+    & .extraDiv {
+        //background-color: azure;
+        padding: 0.2em;
+        margin: 0.2em;
+        border-radius: 10px;
+        padding-left: 2em;
+    }
+}
+
+#addButton {
+    @include buttonStyle(3em, 3em);
+    margin-bottom: 1em;
+}
+
+.flex-center {
+    display: flex;
+    align-content: center;
+    
+    & button {
+        @include buttonStyle(3em, 3em);
+        font-size: 1.2em;
+        margin: 1em;
+    }
     
 }

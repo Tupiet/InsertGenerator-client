@@ -8,18 +8,38 @@
 
     <link rel="stylesheet" href="./styles/style.css">
     <script src="./libraries/jquery.js"></script>
-    <script src="libraries/fake-identity.js"></script>
 </head>
 <body>
     <h1>Insert generator</h1>
 
-    <button id="addButton">+</button>
-    <div id="buttonsDiv">
+    <main>
+        <section class="data">
+            <h3>Data</h3>
+            <p class="subtitle">What do you want to get?</p>
+            <button id="addButton"><i class="fa-solid fa-add"></i></button>
+            <div id="buttonsDiv"></div>
+        </section>
 
-    </div>
+        <section class="info">
+            <h3>Info</h3>
+            <p class="subtitle">How is the table?</p>
+            <div>
+                <label for="tableName">Table name: </label>
+                <input type="text" name="tableName" id="tableName" placeholder="Table">
+            </div>
+            <div>
+                <label for="quantity">Quantity of data: </label>
+                <input type="number" name="quantity" id="quantity" placeholder="100">
+            </div>
 
-    <input type="number" name="quantity" id="quantity">
-    <button id="generateButton">Generate</button>
+            <div class="flex-center">
+                <button id="generateSQLButton"><i class="fa-solid fa-database"></i></button>
+                <button id="generateCSVButton"><i class="fa-solid fa-file-csv"></i></button>
+            </div>
+            
+            
+        </section>
+    </main>
 
     <script src="./scripts/script.js"></script>
 </body>
