@@ -12,7 +12,7 @@
 <body>
     <h1>Insert generator</h1>
 
-    <main>
+    <main id="main">
         <section class="data">
             <h3>Data</h3>
             <p class="subtitle">What do you want to get?</p>
@@ -36,9 +36,21 @@
                 <button id="generateSQLButton"><i class="fa-solid fa-database"></i></button>
                 <button id="generateCSVButton"><i class="fa-solid fa-file-csv"></i></button>
             </div>
-            
-            
         </section>
+
+        <section id="sqlResult">
+            <header>
+                <button id="closeOverlay"><i class="fa-solid fa-close"></i></button>
+            </header>
+            <main>
+                <code>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et recusandae quod incidunt cumque voluptate, ab quae totam, minima aliquid possimus maxime aspernatur magni voluptates magnam architecto, iusto corrupti quis velit!!</code>
+            </main>
+            <footer>
+                <button id="copyClipboard"><i class="fa-solid fa-copy"></i>Copy to clipboard</button>
+            </footer>
+        </section>
+
+        <div class="overlay"></div>
     </main>
 
     <script src="./scripts/script.js"></script>

@@ -5,8 +5,8 @@
 @import "../extra/fontawesome/scss/brands.scss"; 
 
 @mixin buttonStyle($width, $heigth) {
-    width: 2.2em;
-    height: 2.2em;
+    width: $width;
+    height: $heigth;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,14 +35,16 @@ body {
 }
 
 main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    &#main {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
 }
 
 section {
     //border: dotted red;
-    height: 75vh;
+    height: 70vh;
     width: 25em;
     border-radius: 10px;
     
@@ -101,7 +103,7 @@ h3 {
 }
 
 #addButton {
-    @include buttonStyle(3em, 3em);
+    @include buttonStyle(2.2em, 2.2em);
     margin-bottom: 1em;
 }
 
@@ -110,9 +112,79 @@ h3 {
     align-content: center;
     
     & button {
-        @include buttonStyle(3em, 3em);
+        @include buttonStyle(2.2em, 2.2em);
         font-size: 1.2em;
         margin: 1em;
     }
     
+}
+
+#sqlResult {
+    //display: none;
+    position: absolute;
+    width: 70vw;
+    height: 70vh;
+    margin: auto;
+    top: 0; bottom: 0; right: 0; left: 0;
+    z-index: 9;
+    transition: 1s ease;
+
+    display: flex;
+
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    & header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        & button {
+            @include buttonStyle(2.2em, 2.2em);
+            font-size: 1.2em;
+    
+            margin: 1em;
+        }
+    }
+
+    & main {
+        overflow: auto;
+        position: relative;
+        width: auto;
+        height: 50vh;
+        padding: 1em;
+        margin-right: 3em;
+        margin-left: 3em;
+
+
+        background: #242424;
+        border-radius: 10px;
+    }
+
+    & footer {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        & button {
+            @include buttonStyle(10em, 2.2em);
+            font-size: 1.2em;
+            font-family: inherit;
+    
+            margin: 1em;
+        }
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 0; bottom: 0; right: 0; left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba($color: #000000, $alpha: 0.7);
+    transition: 1s ease;
 }
