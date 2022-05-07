@@ -7,6 +7,8 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="extra/prism/prism.css">
+    <link rel="stylesheet" href="extra/prism/themes/prism-vsc-dark-plus.css">
     <script src="./libraries/jquery.js"></script>
 </head>
 <body>
@@ -33,26 +35,27 @@
             </div>
 
             <div class="flex-center">
-                <button id="generateSQLButton"><i class="fa-solid fa-database"></i></button>
-                <button id="generateCSVButton"><i class="fa-solid fa-file-csv"></i></button>
+                <button id="generateSQLButton" data-title="Convert to SQL"><i class="fa-solid fa-database"></i></button>
+                <button id="generateCSVButton" data-title="Convert to CSV"><i class="fa-solid fa-file-csv"></i></button>
             </div>
         </section>
 
-        <section id="sqlResult">
+        <section id="sqlSection" class="hidden">
             <header>
                 <button id="closeOverlay"><i class="fa-solid fa-close"></i></button>
             </header>
             <main>
-                <code>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et recusandae quod incidunt cumque voluptate, ab quae totam, minima aliquid possimus maxime aspernatur magni voluptates magnam architecto, iusto corrupti quis velit!!</code>
+                <pre><code id="sqlResult" class="language-sql"></code></pre>
             </main>
             <footer>
                 <button id="copyClipboard"><i class="fa-solid fa-copy"></i>Copy to clipboard</button>
             </footer>
         </section>
 
-        <div class="overlay"></div>
+        <div id="overlay" class="overlay hidden"></div>
     </main>
 
     <script src="./scripts/script.js"></script>
+    <script src="extra/prism/prism.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,900&display=swap');
 
 @import "../extra/fontawesome/scss/fontawesome.scss";
 @import "../extra/fontawesome/scss/solid.scss"; 
@@ -70,6 +70,8 @@ h1 {
     text-align: center;
     font-family: 'Lato', sans-serif;
     font-size: 3em;
+    font-style: bold;
+    font-weight: 700;
     padding-bottom: 1em;
 }
 
@@ -119,8 +121,8 @@ h3 {
     
 }
 
-#sqlResult {
-    //display: none;
+#sqlSection {
+    display: none;
     position: absolute;
     width: 70vw;
     height: 70vh;
@@ -152,15 +154,26 @@ h3 {
     & main {
         overflow: auto;
         position: relative;
-        width: auto;
+        width: 100%;
         height: 50vh;
-        padding: 1em;
-        margin-right: 3em;
-        margin-left: 3em;
 
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
 
-        background: #242424;
-        border-radius: 10px;
+        
+        & pre {
+            width: 100%;
+            height: 90%;
+            margin-left: 3em;
+            margin-right: 3em;
+            border-radius: 10px;
+            
+            & code {
+                margin: 10px;
+                white-space:pre-wrap
+            }
+        }
     }
 
     & footer {
@@ -186,5 +199,36 @@ h3 {
     width: 100%;
     height: 100vh;
     background: rgba($color: #000000, $alpha: 0.7);
-    transition: 1s ease;
+    transition: opacity 1s ease;
+}
+
+.hidden {
+    visibility : hidden; 
+    opacity: 0;
+    transition: visibility 1s ease, opacity 1s ease;
+}
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+[data-title]:after {
+    content: attr(data-title);
+    background-color: #e5e5e5;
+    color: #111;
+    position: absolute;
+    padding: 1px 5px 2px 5px;
+    bottom: -1.9em;
+    //left: 100%;
+    white-space: nowrap;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    opacity: 0;
+    //border: 1px solid #111111;
+    border-radius: 10px;
+    z-index: 6;
+    visibility: hidden;
+}
+[data-title] {
+    position: relative;
 }

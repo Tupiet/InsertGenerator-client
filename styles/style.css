@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,900&display=swap");
 /*!
  * Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
@@ -10152,6 +10152,8 @@ h1 {
   text-align: center;
   font-family: "Lato", sans-serif;
   font-size: 3em;
+  font-style: bold;
+  font-weight: 700;
   padding-bottom: 1em;
 }
 
@@ -10222,7 +10224,8 @@ h3 {
   background-color: #dcdcdc;
 }
 
-#sqlResult {
+#sqlSection {
+  display: none;
   position: absolute;
   width: 70vw;
   height: 70vh;
@@ -10237,14 +10240,14 @@ h3 {
   justify-content: flex-start;
   align-items: flex-start;
 }
-#sqlResult header {
+#sqlSection header {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
 }
-#sqlResult header button {
+#sqlSection header button {
   width: 2.2em;
   height: 2.2em;
   display: flex;
@@ -10259,28 +10262,37 @@ h3 {
   font-size: 1.2em;
   margin: 1em;
 }
-#sqlResult header button:hover {
+#sqlSection header button:hover {
   background-color: #dcdcdc;
 }
-#sqlResult main {
+#sqlSection main {
   overflow: auto;
   position: relative;
-  width: auto;
+  width: 100%;
   height: 50vh;
-  padding: 1em;
-  margin-right: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+#sqlSection main pre {
+  width: 100%;
+  height: 90%;
   margin-left: 3em;
-  background: #242424;
+  margin-right: 3em;
   border-radius: 10px;
 }
-#sqlResult footer {
+#sqlSection main pre code {
+  margin: 10px;
+  white-space: pre-wrap;
+}
+#sqlSection footer {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-#sqlResult footer button {
+#sqlSection footer button {
   width: 10em;
   height: 2.2em;
   display: flex;
@@ -10296,7 +10308,7 @@ h3 {
   font-family: inherit;
   margin: 1em;
 }
-#sqlResult footer button:hover {
+#sqlSection footer button:hover {
   background-color: #dcdcdc;
 }
 
@@ -10309,5 +10321,36 @@ h3 {
   width: 100%;
   height: 100vh;
   background: rgba(0, 0, 0, 0.7);
-  transition: 1s ease;
+  transition: opacity 1s ease;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s ease, opacity 1s ease;
+}
+
+[data-title]:hover:after {
+  opacity: 1;
+  transition: all 0.1s ease 0.5s;
+  visibility: visible;
+}
+
+[data-title]:after {
+  content: attr(data-title);
+  background-color: #e5e5e5;
+  color: #111;
+  position: absolute;
+  padding: 1px 5px 2px 5px;
+  bottom: -1.9em;
+  white-space: nowrap;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  opacity: 0;
+  border-radius: 10px;
+  z-index: 6;
+  visibility: hidden;
+}
+
+[data-title] {
+  position: relative;
 }

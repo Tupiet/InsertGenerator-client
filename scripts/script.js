@@ -3,8 +3,12 @@ let buttonsDiv = document.getElementById('buttonsDiv')
 let quantity = document.getElementById('quantity')
 let tableName = document.getElementById('tableName')
 
-
 let generateSQLButton = document.getElementById('generateSQLButton')
+
+let copyButton = document.getElementById('copyClipboard')
+let closeOverlay = document.getElementById('closeOverlay')
+
+let sqlResult = document.getElementById('sqlResult')
 
 let options = ['Name', 'Number', 'Street', 'Email', 'DNI', 'Phone (house)', 'Phone (mobile)', 'Date']
 
@@ -220,8 +224,22 @@ generateSQLButton.addEventListener('click', function() {
     .then(response => response.json())
     // Agafarem la informació rebuda i farem la conversió a SQL
     .then(data => {
-        console.log(convertToSQL(data))
+        sqlResult.innerHTML = convertToSQL(data)
+        Prism.highlightAll()
+        document.getElementById('overlay').classList.remove('hidden')
+        document.getElementById('sqlSection').classList.remove('hidden')
+        //console.log(convertToSQL(data))
     })
+})
+
+closeOverlay.addEventListener('click', function() {
+    document.getElementById('overlay').classList.add('hidden')
+    document.getElementById('sqlSection').classList.add('hidden')
+})
+
+copyButton.addEventListener('click', function() {
+    //sqlResult.innerText
+    navigator.clipboard.writeText(sqlResult.innerText)
 })
 
 function convertToSQL(data) {
