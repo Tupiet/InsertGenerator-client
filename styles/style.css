@@ -10224,7 +10224,7 @@ h3 {
   background-color: #dcdcdc;
 }
 
-#sqlSection {
+#codeSection {
   display: none;
   position: absolute;
   width: 70vw;
@@ -10240,14 +10240,14 @@ h3 {
   justify-content: flex-start;
   align-items: flex-start;
 }
-#sqlSection header {
+#codeSection header {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
 }
-#sqlSection header button {
+#codeSection header button {
   width: 2.2em;
   height: 2.2em;
   display: flex;
@@ -10262,10 +10262,10 @@ h3 {
   font-size: 1.2em;
   margin: 1em;
 }
-#sqlSection header button:hover {
+#codeSection header button:hover {
   background-color: #dcdcdc;
 }
-#sqlSection main {
+#codeSection main {
   overflow: auto;
   position: relative;
   width: 100%;
@@ -10274,25 +10274,25 @@ h3 {
   justify-content: center;
   align-items: flex-start;
 }
-#sqlSection main pre {
+#codeSection main pre {
   width: 100%;
   height: 90%;
   margin-left: 3em;
   margin-right: 3em;
   border-radius: 10px;
 }
-#sqlSection main pre code {
+#codeSection main pre code {
   margin: 10px;
   white-space: pre-wrap;
 }
-#sqlSection footer {
+#codeSection footer {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-#sqlSection footer button {
+#codeSection footer button {
   width: 10em;
   height: 2.2em;
   display: flex;
@@ -10308,7 +10308,7 @@ h3 {
   font-family: inherit;
   margin: 1em;
 }
-#sqlSection footer button:hover {
+#codeSection footer button:hover {
   background-color: #dcdcdc;
 }
 

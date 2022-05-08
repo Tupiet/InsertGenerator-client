@@ -4,11 +4,12 @@ let quantity = document.getElementById('quantity')
 let tableName = document.getElementById('tableName')
 
 let generateSQLButton = document.getElementById('generateSQLButton')
+let generateCSVButton = document.getElementById('generateCSVButton')
 
 let copyButton = document.getElementById('copyClipboard')
 let closeOverlay = document.getElementById('closeOverlay')
 
-let sqlResult = document.getElementById('sqlResult')
+let codeResult = document.getElementById('codeResult')
 
 let options = ['Name', 'Number', 'Street', 'Email', 'DNI', 'Phone (house)', 'Phone (mobile)', 'Date']
 
@@ -224,22 +225,119 @@ generateSQLButton.addEventListener('click', function() {
     .then(response => response.json())
     // Agafarem la informació rebuda i farem la conversió a SQL
     .then(data => {
-        sqlResult.innerHTML = convertToSQL(data)
+        codeResult.innerHTML = convertToSQL(data)
+        codeResult.classList.add('language-sql')
         Prism.highlightAll()
         document.getElementById('overlay').classList.remove('hidden')
-        document.getElementById('sqlSection').classList.remove('hidden')
+        document.getElementById('codeSection').classList.remove('hidden')
+        //console.log(convertToSQL(data))
+    })
+})
+
+// Afegim un EventListener al botó generateButton, que s'activarà quan es doni clic al botó de generar la informació
+generateCSVButton.addEventListener('click', function() {
+    
+    // Fem un reset al request
+    request = {
+        info:  { },
+        data:  { }
+    }
+    // Afegim a l'apartat info la quantitat d'inserts que volem rebre
+    request.info.quantity = quantity.value
+
+
+    // Per cada element dins del div
+    $("#buttonsDiv > div").each(function(e) {
+
+        let input = this.children[0]
+        let option = this.children[1]
+        let showExtra = this.children[2]
+        let newDiv = this.children[3]
+
+        let max
+        let min
+        //let format
+
+        // Si existeix newDiv (el div que conté la informació extra), afegirem la informació
+        if (newDiv) {
+            max = newDiv.children[1]
+            min = newDiv.children[0]
+            //format = newDiv.children[2]
+        }
+
+        // Si el nom de l'element aleatori a rebre està buit, avisa
+        if (!input.value) {
+            console.log("Empty value! Not sent")
+        } 
+        // Del contrari, comença amb el procés per enviar la informació
+        else {
+            /*
+             * toSend guardarà el necessari per enviar al servidor.
+             * Sempre ha d'enviar el tipus de dada a rebre, que serà el que hagi elegit al select (nom, número, etc)
+             * En cas que els camps min o max tinguin valors, toSend també contindrà aquesta informació
+             */
+            let toSend = { 
+                type: option.value
+            }
+
+            if (min || max) {
+                toSend['min'] = min.value
+                toSend['max'] = max.value
+            }
+
+            /*if (format) {
+                toSend['format'] = format.value
+            }*/
+            
+            /*
+             * request és l'element que s'enviarà al server
+             * request.data conté els diferents elements a rebre
+             * request.data[input.value] és la informació específica de l'element, i tindrà el valor de toSend.
+             * Per exemple, si un camp a rebre és myName, seria request.data['myName']
+             */
+            request.data[input.value] = toSend
+        }
+
+    })
+
+    console.log(request)
+
+    // Seguidament, fem la petició al servidor, on li enviem l'objecte request com a string. 
+    // Espeficiquem que enviarem un JSON.
+    fetch(`http://localhost:81`, {
+        method: 'POST',              
+        body: JSON.stringify(request),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    // Agafarem la resposta com a JSON
+    .then(response => response.json())
+    // Agafarem la informació rebuda i farem la conversió a SQL
+    .then(data => {
+        codeResult.innerHTML = convertToCSV(data)
+        codeResult.classList.add('language-csv')
+        Prism.highlightAll()
+        document.getElementById('overlay').classList.remove('hidden')
+        document.getElementById('codeSection').classList.remove('hidden')
         //console.log(convertToSQL(data))
     })
 })
 
 closeOverlay.addEventListener('click', function() {
     document.getElementById('overlay').classList.add('hidden')
-    document.getElementById('sqlSection').classList.add('hidden')
+    document.getElementById('codeSection').classList.add('hidden')
+    try {
+        document.getElementById('codeSection').classList.remove('language-sql')
+        document.getElementById('codeSection').classList.remove('language-csv')
+    } catch (error) {
+        
+    }
 })
 
 copyButton.addEventListener('click', function() {
-    //sqlResult.innerText
-    navigator.clipboard.writeText(sqlResult.innerText)
+    //codeResult.innerText
+    navigator.clipboard.writeText(codeResult.innerText)
 })
 
 function convertToSQL(data) {
@@ -280,6 +378,32 @@ function convertToSQL(data) {
     // Elimina la coma i espai final de l'últim element
     textToSend = textToSend.slice(0, -2)
     textToSend += ";"
+
+    // Retorna textToSend
+    return textToSend
+}
+
+function convertToCSV(data) {
+    // Creem la variable textToSend, que contindrà la conversió a SQL
+    let textToSend = ""
+    
+    // Creem la variable keys, que contindrà una array amb les diferents claus de request.data (els noms dels elements)
+    let keys = Object.keys(request.data)
+
+    // Afegeix a textToSend cada clau separades per comes (nom de les columnes)
+    /*keys.forEach((key) => {
+        textToSend += `${key}, `
+    })*/
+
+    // Per cada línia de valors retornada pel servidor 
+    data.data.forEach((result) => {
+        keys.forEach((key) => { 
+            // Per cada element retornat
+            textToSend += `${result[key]},`
+        })
+
+        textToSend += "\n"
+    })
 
     // Retorna textToSend
     return textToSend
