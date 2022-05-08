@@ -328,8 +328,8 @@ closeOverlay.addEventListener('click', function() {
     document.getElementById('overlay').classList.add('hidden')
     document.getElementById('codeSection').classList.add('hidden')
     try {
-        document.getElementById('codeSection').classList.remove('language-sql')
-        document.getElementById('codeSection').classList.remove('language-csv')
+        document.getElementById('codeResult').classList.remove('language-sql')
+        document.getElementById('codeResult').classList.remove('language-csv')
     } catch (error) {
         
     }
