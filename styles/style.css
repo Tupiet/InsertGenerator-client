@@ -10282,7 +10282,7 @@ h3 {
   border-radius: 10px;
 }
 #codeSection main pre code {
-  margin: 10px;
+  margin: 0;
   white-space: pre-wrap;
 }
 #codeSection footer {
@@ -10321,13 +10321,29 @@ h3 {
   width: 100%;
   height: 100vh;
   background: rgba(0, 0, 0, 0.7);
-  transition: opacity 1s ease;
+  transition: opacity 0.8s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overlay #loading {
+  width: 10em;
+  height: 10em;
+  border: 1.5em solid #b9b9b9;
+  border-radius: 50%;
+  border-top: 1.5em solid #202020;
+  animation: goRotate 1.5s infinite ease-in-out;
+}
+@keyframes goRotate {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .hidden {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 1s ease, opacity 1s ease;
+  transition: visibility 0.8s ease, opacity 0.8s ease;
 }
 
 [data-title]:hover:after {

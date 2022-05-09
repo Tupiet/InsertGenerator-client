@@ -9,7 +9,11 @@ let generateCSVButton = document.getElementById('generateCSVButton')
 let copyButton = document.getElementById('copyClipboard')
 let closeOverlay = document.getElementById('closeOverlay')
 
+let codeSection = document.getElementById('codeSection')
 let codeResult = document.getElementById('codeResult')
+
+let overlay = document.getElementById('overlay')
+let loading = document.getElementById('loading')
 
 let options = ['Name', 'Number', 'Street', 'Email', 'DNI', 'Phone (house)', 'Phone (mobile)', 'Date']
 
@@ -144,99 +148,87 @@ addButton.addEventListener('click', function() {
     });
 })
 
-// Afegim un EventListener al botó generateButton, que s'activarà quan es doni clic al botó de generar la informació
-generateSQLButton.addEventListener('click', function() {
-    
-    // Fem un reset al request
-    request = {
-        info:  { },
-        data:  { }
-    }
-    // Afegim a l'apartat info la quantitat d'inserts que volem rebre
-    request.info.quantity = quantity.value
-
-
-    // Per cada element dins del div
-    $("#buttonsDiv > div").each(function(e) {
-
-        let input = this.children[0]
-        let option = this.children[1]
-        let showExtra = this.children[2]
-        let newDiv = this.children[3]
-
-        let max
-        let min
-        //let format
-
-        // Si existeix newDiv (el div que conté la informació extra), afegirem la informació
-        if (newDiv) {
-            max = newDiv.children[1]
-            min = newDiv.children[0]
-            //format = newDiv.children[2]
-        }
-
-        // Si el nom de l'element aleatori a rebre està buit, avisa
-        if (!input.value) {
-            console.log("Empty value! Not sent")
-        } 
-        // Del contrari, comença amb el procés per enviar la informació
-        else {
-            /*
-             * toSend guardarà el necessari per enviar al servidor.
-             * Sempre ha d'enviar el tipus de dada a rebre, que serà el que hagi elegit al select (nom, número, etc)
-             * En cas que els camps min o max tinguin valors, toSend també contindrà aquesta informació
-             */
-            let toSend = { 
-                type: option.value
-            }
-
-            if (min || max) {
-                toSend['min'] = min.value
-                toSend['max'] = max.value
-            }
-
-            /*if (format) {
-                toSend['format'] = format.value
-            }*/
-            
-            /*
-             * request és l'element que s'enviarà al server
-             * request.data conté els diferents elements a rebre
-             * request.data[input.value] és la informació específica de l'element, i tindrà el valor de toSend.
-             * Per exemple, si un camp a rebre és myName, seria request.data['myName']
-             */
-            request.data[input.value] = toSend
-        }
-
-    })
+// Afegim un EventListener al botó generateButton, que s'activarà quan es doni clic al botó de generar l'SQL
+generateSQLButton.addEventListener('click', async function() {
+    // En primer lloc, recollim les dades del client (ho posarà tot a l'objecte request)
+    collectData()
 
     console.log(request)
 
+    overlay.classList.remove('hidden')
+    loading.classList.remove('hidden')
+
     // Seguidament, fem la petició al servidor, on li enviem l'objecte request com a string. 
     // Espeficiquem que enviarem un JSON.
-    fetch(`http://localhost:81`, {
+    let response = await fetch(`http://localhost:81`, {
         method: 'POST',              
         body: JSON.stringify(request),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-    // Agafarem la resposta com a JSON
-    .then(response => response.json())
-    // Agafarem la informació rebuda i farem la conversió a SQL
-    .then(data => {
+
+    // Si la resposta és correcta, converteix-ho a JSON, retorna-ho com a SQL i fes canvis a les classes
+    if (response.ok) {
+        let data = await response.json()
         codeResult.innerHTML = convertToSQL(data)
         codeResult.classList.add('language-sql')
         Prism.highlightAll()
-        document.getElementById('overlay').classList.remove('hidden')
-        document.getElementById('codeSection').classList.remove('hidden')
+        loading.classList.add('hidden')
+        codeSection.classList.remove('hidden')
         //console.log(convertToSQL(data))
-    })
+    }
 })
 
-// Afegim un EventListener al botó generateButton, que s'activarà quan es doni clic al botó de generar la informació
-generateCSVButton.addEventListener('click', function() {
+// Afegim un EventListener al botó generateButton, que s'activarà quan es doni clic al botó de generar el CSV
+generateCSVButton.addEventListener('click', async function() {
+    // En primer lloc, recollim les dades del client (ho posarà tot a l'objecte request)
+    collectData()
     
+    console.log(request)
+    
+    overlay.classList.remove('hidden')
+    loading.classList.remove('hidden')
+    
+    // Seguidament, fem la petició al servidor, on li enviem l'objecte request com a string. 
+    // Espeficiquem que enviarem un JSON.
+    let url = "http://localhost:81"
+    let response = await fetch(url, {
+        method: 'POST',              
+        body: JSON.stringify(request),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    
+    // Si la resposta és correcta, converteix-ho a JSON, retorna-ho com a SQL i fes canvis a les classes
+    if (response.ok) {
+        let data = await response.json()
+        codeResult.innerHTML = convertToCSV(data)
+        codeResult.classList.add('language-csv')
+        Prism.highlightAll()
+        loading.classList.add('hidden')
+        codeSection.classList.remove('hidden')
+        //console.log(convertToSQL(data))
+    }
+})
+
+// Quan es doni clic al botó de tancar l'overlay
+closeOverlay.addEventListener('click', function() {
+    overlay.classList.add('hidden')
+    codeSection.classList.add('hidden')
+    try {
+        codeResult.classList.remove('language-sql')
+        codeResult.classList.remove('language-csv')
+    } catch (error) { }
+})
+
+// Quan es doni clic al botó de copiar
+copyButton.addEventListener('click', function() {
+    navigator.clipboard.writeText(codeResult.innerText)
+})
+
+function collectData() {
     // Fem un reset al request
     request = {
         info:  { },
@@ -299,46 +291,7 @@ generateCSVButton.addEventListener('click', function() {
         }
 
     })
-
-    console.log(request)
-
-    // Seguidament, fem la petició al servidor, on li enviem l'objecte request com a string. 
-    // Espeficiquem que enviarem un JSON.
-    fetch(`http://localhost:81`, {
-        method: 'POST',              
-        body: JSON.stringify(request),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    // Agafarem la resposta com a JSON
-    .then(response => response.json())
-    // Agafarem la informació rebuda i farem la conversió a SQL
-    .then(data => {
-        codeResult.innerHTML = convertToCSV(data)
-        codeResult.classList.add('language-csv')
-        Prism.highlightAll()
-        document.getElementById('overlay').classList.remove('hidden')
-        document.getElementById('codeSection').classList.remove('hidden')
-        //console.log(convertToSQL(data))
-    })
-})
-
-closeOverlay.addEventListener('click', function() {
-    document.getElementById('overlay').classList.add('hidden')
-    document.getElementById('codeSection').classList.add('hidden')
-    try {
-        document.getElementById('codeResult').classList.remove('language-sql')
-        document.getElementById('codeResult').classList.remove('language-csv')
-    } catch (error) {
-        
-    }
-})
-
-copyButton.addEventListener('click', function() {
-    //codeResult.innerText
-    navigator.clipboard.writeText(codeResult.innerText)
-})
+}
 
 function convertToSQL(data) {
     // Creem la variable textToSend, que contindrà la conversió a SQL
@@ -401,7 +354,7 @@ function convertToCSV(data) {
             // Per cada element retornat
             textToSend += `${result[key]},`
         })
-
+        textToSend = textToSend.slice(0, -1)
         textToSend += "\n"
     })
 
