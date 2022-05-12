@@ -4,7 +4,7 @@
 @import "../extra/fontawesome/scss/solid.scss"; 
 @import "../extra/fontawesome/scss/brands.scss"; 
 
-@mixin buttonStyle($width, $heigth) {
+@mixin buttonStyle($width, $heigth, $hoverColor: #dcdcdc) {
     width: $width;
     height: $heigth;
     display: flex;
@@ -18,7 +18,7 @@
     cursor: pointer;
 
     &:hover {
-        background-color: #dcdcdc;
+        background-color: $hoverColor;
     }
 }
 
@@ -77,6 +77,10 @@ h3 {
     font-size: 1.5em;
 }
 
+label {
+    font-family: 'Lato', sans-serif;
+}
+
 .subtitle {
     text-align: center;
     font-family: 'Lato', sans-serif;
@@ -89,29 +93,72 @@ h3 {
     margin: 0.5em;
     border-radius: 7px;
     background-color: rgb(233, 233, 233);
-    
 
-    & .extraDiv {
-        //background-color: azure;
-
-        /* padding: 0.2em;
-        margin: 0.2em;
-        border-radius: 10px;
-        padding-left: 2em; */
-        
+    .extraDiv {
         display: none;
         position: absolute;
         width: 70vw;
-        height: 70vh;
+        height: 50vh;
         margin: auto;
         top: 0; bottom: 0; right: 0; left: 0;
         z-index: 9;
         transition: 1s ease;
-
+        background: #b9b9b9;
+    
         display: flex;
-
+    
         justify-content: flex-start;
         align-items: flex-start;
+    
+        & header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+    
+            & button {
+                @include buttonStyle(2.2em, 2.2em);
+                font-size: 1.2em;
+        
+                margin: 1em;
+            }
+        }
+    
+        & main {
+            overflow: auto;
+            position: relative;
+            width: 100%;
+            height: 90%;
+    
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+    
+            margin-bottom: 3em;
+            
+            & #extraOptions {
+                width: 100%;
+                height: 90%;
+                margin-left: 3em;
+                margin-right: 3em;
+                border-radius: 10px;
+                background: #e5e5e5;
+                padding: 1em;
+                overflow: auto;
+
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                flex-direction: column
+            }
+        }
+    }
+
+    & #showExtra {
+        @include buttonStyle(2.2em, 2.2em, #e1e1e1);
+        display: inline-block;
+        margin-left: 1em;
     }
 }
 
@@ -200,63 +247,6 @@ h3 {
             font-family: inherit;
     
             margin: 1em;
-        }
-    }
-}
-
-#extraSection {
-    display: none;
-    position: absolute;
-    width: 70vw;
-    height: 70vh;
-    margin: auto;
-    top: 0; bottom: 0; right: 0; left: 0;
-    z-index: 9;
-    transition: 1s ease;
-
-    display: flex;
-
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    & header {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: center;
-
-        & button {
-            @include buttonStyle(2.2em, 2.2em);
-            font-size: 1.2em;
-    
-            margin: 1em;
-        }
-    }
-
-    & main {
-        overflow: auto;
-        position: relative;
-        width: 100%;
-        height: 60vh;
-
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-
-        
-        & #extraOptions {
-            width: 100%;
-            height: 90%;
-            margin-left: 3em;
-            margin-right: 3em;
-            border-radius: 10px;
-            background: #e5e5e5;
-            
-            & code {
-                margin: 0;
-                white-space: pre-wrap
-            }
         }
     }
 }

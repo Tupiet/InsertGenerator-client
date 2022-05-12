@@ -10163,6 +10163,10 @@ h3 {
   font-size: 1.5em;
 }
 
+label {
+  font-family: "Lato", sans-serif;
+}
+
 .subtitle {
   text-align: center;
   font-family: "Lato", sans-serif;
@@ -10177,14 +10181,10 @@ h3 {
   background-color: #e9e9e9;
 }
 .divisorDiv .extraDiv {
-  /* padding: 0.2em;
-  margin: 0.2em;
-  border-radius: 10px;
-  padding-left: 2em; */
   display: none;
   position: absolute;
   width: 70vw;
-  height: 70vh;
+  height: 50vh;
   margin: auto;
   top: 0;
   bottom: 0;
@@ -10192,9 +10192,77 @@ h3 {
   left: 0;
   z-index: 9;
   transition: 1s ease;
+  background: #b9b9b9;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+}
+.divisorDiv .extraDiv header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.divisorDiv .extraDiv header button {
+  width: 2.2em;
+  height: 2.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  background: #efefef;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin: 1em;
+}
+.divisorDiv .extraDiv header button:hover {
+  background-color: #dcdcdc;
+}
+.divisorDiv .extraDiv main {
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 3em;
+}
+.divisorDiv .extraDiv main #extraOptions {
+  width: 100%;
+  height: 90%;
+  margin-left: 3em;
+  margin-right: 3em;
+  border-radius: 10px;
+  background: #e5e5e5;
+  padding: 1em;
+  overflow: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.divisorDiv #showExtra {
+  width: 2.2em;
+  height: 2.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  background: #efefef;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 1em;
+}
+.divisorDiv #showExtra:hover {
+  background-color: #e1e1e1;
 }
 
 #addButton {
@@ -10324,69 +10392,6 @@ h3 {
 }
 #codeSection footer button:hover {
   background-color: #dcdcdc;
-}
-
-#extraSection {
-  display: none;
-  position: absolute;
-  width: 70vw;
-  height: 70vh;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 9;
-  transition: 1s ease;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-#extraSection header {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-}
-#extraSection header button {
-  width: 2.2em;
-  height: 2.2em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 0;
-  background: #efefef;
-  border-radius: 8px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
-  transition: background-color 0.5s ease;
-  cursor: pointer;
-  font-size: 1.2em;
-  margin: 1em;
-}
-#extraSection header button:hover {
-  background-color: #dcdcdc;
-}
-#extraSection main {
-  overflow: auto;
-  position: relative;
-  width: 100%;
-  height: 60vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-#extraSection main #extraOptions {
-  width: 100%;
-  height: 90%;
-  margin-left: 3em;
-  margin-right: 3em;
-  border-radius: 10px;
-  background: #e5e5e5;
-}
-#extraSection main #extraOptions code {
-  margin: 0;
-  white-space: pre-wrap;
 }
 
 .overlay {

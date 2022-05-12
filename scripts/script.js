@@ -29,15 +29,20 @@ addButton.addEventListener('click', function() {
     let divisorDiv = document.createElement('div')
 
     // Creem un altre div, que contindrà la informació extra
-    let extraDiv = document.createElement('div')
+    let extraSection = document.createElement('section')
+    let extraHeader = document.createElement('header')
+    let extraMain = document.createElement('main')
+    let extraMainDiv = document.createElement('div')
+    let closeExtraSection = document.createElement('button')
+    let closeExtraSectionIcon = document.createElement('i')
 
     // Creem un input i un select, que serviran per posar el nom de l'element i el tipus (nom, número, etc)
     let input = document.createElement('input')
     let select = document.createElement('select')
 
-    // Crearem un checkbox que, quan se li doni clic, mostrarà més informació
-    let showExtra = document.createElement('input')
-    showExtra.type = 'checkbox'
+    // Crearem un botó que, quan se li doni clic, mostrarà més informació
+    let showExtra = document.createElement('button')
+    let showExtraIcon = document.createElement('i')
 
     // Creem els elements max i min, que en alguns casos serviran per delimitar els rangs de dades
     let max = document.createElement('input')
@@ -47,7 +52,8 @@ addButton.addEventListener('click', function() {
     // Donarem un nom a aquests atributs
     input.name = 'input'
     select.name = 'select'
-    showExtra.name = 'showExtra'
+    showExtra.id = 'showExtra'
+    extraMainDiv.id = 'extraOptions'
     
     max.name = 'max'
     min.name = 'min'
@@ -55,97 +61,110 @@ addButton.addEventListener('click', function() {
     
     // Donarem unes classes i altres detalls als divs i elements
     divisorDiv.className = "divisorDiv"
-    extraDiv.className = "extraDiv"
+    extraSection.className = "extraDiv"
+    showExtraIcon.classList.add('fa-solid')
+    showExtraIcon.classList.add('fa-info')
+
+    closeExtraSection.classList.add('fa-solid')
+    closeExtraSection.classList.add('fa-close')
 
     input.placeholder = "Column"
     min.placeholder = "Minimum"
     max.placeholder = "Maximum"
 
-    // Afegim un EventListener al botó showExtra per enviar informació extra
-    showExtra.addEventListener('change', function () {
-        // Si s'ha activat...
-        if (this.checked) {
-            // Primerament elimina tot el que hi pugui haver
-            for (let i = 0; i < extraDiv.children.length; i++) {
-                let element = extraDiv.children[i]
-                extraDiv.removeChild(element)
-            }
-
-            // Després, afegeix els elements extra que toquin
-            switch (select.value) {
-                case 'Number':
-                    divisorDiv.appendChild(extraDiv)
-                    extraDiv.appendChild(min)
-                    extraDiv.appendChild(max)
-                    break
-                case 'Date':
-                    divisorDiv.appendChild(extraDiv)
-                    extraDiv.appendChild(min)
-                    extraDiv.appendChild(max)
-                    //newDiv.appendChild(format)
-                    break
-                default:
-                    //divisorDiv.removeChild(newDiv)
-                    break
-            }
-            
-        } 
-        // Si s'ha desactivat la informació extra
-        else {
-            // Elimina el div de la informació extra
-            try {
-                divisorDiv.removeChild(extraDiv)
-            } catch (error) {  /* No facis res... */ }
-        }
-    })
-
-    // Afegim un EventListener al select, per poder-nos canviar la informació extra d'acord al que ens demanen
-    select.addEventListener('change', function () {
-        try {
-            // Si la informació extra està activada
-            if (showExtra.checked) {
-                // Elimina tot el que hi havia abans
-                for (let i = 0; i < extraDiv.children.length; i++) {
-                    let element = extraDiv.children[i]
-                    extraDiv.removeChild(element)
-                }
-
-                // Afegim la informació necessària depenent del tipus de dada
-                switch (select.value) {
-                    case 'Number':
-                        divisorDiv.appendChild(extraDiv)
-                        extraDiv.appendChild(min)
-                        extraDiv.appendChild(max)
-                        break
-                    case 'Date':
-                        divisorDiv.appendChild(extraDiv)
-                        extraDiv.appendChild(min)
-                        extraDiv.appendChild(max)
-                        //newDiv.appendChild(format)
-                        break
-                    default:
-                        divisorDiv.removeChild(extraDiv)
-                        break
-                }
-            }
-
-        } catch (error) { /*console.log('error ' + error)*/ }
-    })
-
     // Afegim els diferents elements al document
     buttonsDiv.appendChild(divisorDiv)
-
     divisorDiv.appendChild(input)
     divisorDiv.appendChild(select)
     divisorDiv.appendChild(showExtra)
+    showExtra.appendChild(showExtraIcon)
+
+    extraSection.classList.add("hidden")
+    divisorDiv.appendChild(extraSection)
+    extraSection.appendChild(extraHeader)
+    extraSection.appendChild(extraMain)
+    extraMain.appendChild(extraMainDiv)
+    extraHeader.appendChild(closeExtraSection)
+    closeExtraSection.appendChild(closeExtraSectionIcon)
+
+    // Afegeix la informació 
+    removeAndAdd()
+
+    // Afegim un EventListener al select, per poder-nos canviar la informació extra d'acord al que ens demanen
+    select.addEventListener('change', function () {
+        // Elimina tot el que hi hagi i actualitza les dades a les actuals
+        try { removeAndAdd() } catch (error) { /*console.log('error ' + error)*/ }
+    })
     
+    showExtra.addEventListener('click', function() {
+        overlay.classList.remove('hidden')
+        extraSection.classList.remove('hidden')
+    })
+
+    closeExtraSection.addEventListener('click', function() {
+        overlay.classList.add('hidden')
+        extraSection.classList.add('hidden')
+    })
+
     // Afegim cada opció al select
     options.forEach(option => {
         let tag = document.createElement('option')
         tag.textContent = option
         tag.value = option
         select.appendChild(tag)
-    });
+    })
+
+    function removeAndAdd() {
+        // Elimina tot el que hi havia abans
+        for (let i = 0; i < extraMainDiv.children.length; ) {
+            let element = extraMainDiv.children[i]
+            console.log(element)
+            extraMainDiv.removeChild(element)
+        }
+
+        // Afegim la informació necessària depenent del tipus de dada
+        switch (select.value) {
+            case 'Number': {
+                let minDiv = document.createElement('div')
+                let maxDiv = document.createElement('div')
+
+                let minLabel = document.createElement('label')
+                let maxLabel = document.createElement('label')
+
+                minLabel.innerHTML = "Minimum: "
+                maxLabel.innerHTML = "Maximum: "
+
+                extraMainDiv.appendChild(minDiv)
+                minDiv.appendChild(minLabel)
+                minDiv.appendChild(min)
+                extraMainDiv.appendChild(maxDiv)
+                maxDiv.appendChild(maxLabel)
+                maxDiv.appendChild(max)
+                break
+            }
+            case 'Date': {
+                let minDiv = document.createElement('div')
+                let maxDiv = document.createElement('div')
+
+                let minLabel = document.createElement('label')
+                let maxLabel = document.createElement('label')
+                
+                minLabel.innerHTML = "Minimum: "
+                maxLabel.innerHTML = "Maximum: "
+
+                extraMainDiv.appendChild(minDiv)
+                minDiv.appendChild(minLabel)
+                minDiv.appendChild(min)
+                extraMainDiv.appendChild(maxDiv)
+                maxDiv.appendChild(maxLabel)
+                maxDiv.appendChild(max)
+                //newDiv.appendChild(format)
+                break
+            }
+            default:
+                break
+        }
+    }
 })
 
 // Afegim un EventListener al botó generateButton, que s'activarà quan es doni clic al botó de generar l'SQL
@@ -243,17 +262,21 @@ function collectData() {
 
         let input = this.children[0]
         let option = this.children[1]
-        let showExtra = this.children[2]
         let newDiv = this.children[3]
+        let extraMain = newDiv.children[1]
+        let extraMainDiv = extraMain.children[0]
+
+        let extraMinDiv = extraMainDiv.children[0]
+        let extraMaxDiv = extraMainDiv.children[1]
 
         let max
         let min
         //let format
 
         // Si existeix newDiv (el div que conté la informació extra), afegirem la informació
-        if (newDiv) {
-            max = newDiv.children[1]
-            min = newDiv.children[0]
+        if (extraMinDiv) {
+            min = extraMinDiv.children[1]
+            max = extraMaxDiv.children[1]
             //format = newDiv.children[2]
         }
 
