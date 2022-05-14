@@ -10116,6 +10116,12 @@ readers do not read off random characters that represent icons */
   content: "";
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   /* display: flex;
   flex-direction: column;
@@ -10426,6 +10432,41 @@ label {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.8s ease, opacity 0.8s ease;
+}
+
+input {
+  height: 25px;
+  font-family: inherit;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  padding: 0.25em 0.5em;
+  background: #fff;
+  transition: 180ms box-shadow ease-in-out, 180ms border ease-in-out;
+}
+input:not(textarea) {
+  line-height: 1;
+}
+input:focus {
+  border: 2px solid #202020;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  outline: 3px solid transparent;
+}
+
+select {
+  margin-left: 5px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 25px;
+  width: 100px;
+  padding: 5px;
+  font-family: inherit;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  padding: 0.25em 0.5em;
+  background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHBvbHlnb24gY2xhc3M9ImNscy0yIiBwb2ludHM9IjEuNDEgNC42NyAyLjQ4IDMuMTggMy41NCA0LjY3IDEuNDEgNC42NyIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIzLjU0IDUuMzMgMi40OCA2LjgyIDEuNDEgNS4zMyAzLjU0IDUuMzMiLz48L3N2Zz4=) no-repeat 95% 50%;
+  background-color: #fff;
+  outline: 3px solid transparent;
 }
 
 [data-title]:hover:after {
