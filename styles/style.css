@@ -10252,6 +10252,13 @@ label {
   align-items: flex-start;
   flex-direction: column;
 }
+.divisorDiv .extraDiv main #extraOptions > div {
+  display: flex;
+  align-items: center;
+}
+.divisorDiv .extraDiv main #extraOptions > div input[type=checkbox] {
+  margin-left: 1em;
+}
 .divisorDiv #showExtra {
   width: 2.2em;
   height: 2.2em;

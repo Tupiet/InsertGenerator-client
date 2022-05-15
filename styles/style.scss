@@ -156,7 +156,16 @@ label {
                 display: flex;
                 justify-content: flex-start;
                 align-items: flex-start;
-                flex-direction: column
+                flex-direction: column;
+
+                & > div {
+                    display: flex;
+                    align-items: center;
+
+                    & input[type="checkbox"] {
+                        margin-left: 1em;
+                    }
+                }
             }
         }
     }
