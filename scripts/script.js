@@ -44,9 +44,6 @@ addButton.addEventListener('click', function() {
     let showExtra = document.createElement('button')
     let showExtraIcon = document.createElement('i')
 
-    // Creem els elements max i min, que en alguns casos serviran per delimitar els rangs de dades
-    let max = document.createElement('input')
-    let min = document.createElement('input')
     //let format = document.createElement('input')
 
     // Donarem un nom a aquests atributs
@@ -55,8 +52,7 @@ addButton.addEventListener('click', function() {
     showExtra.id = 'showExtra'
     extraMainDiv.id = 'extraOptions'
     
-    max.name = 'max'
-    min.name = 'min'
+    
     //format.name = 'format'
     
     // Donarem unes classes i altres detalls als divs i elements
@@ -69,8 +65,6 @@ addButton.addEventListener('click', function() {
     closeExtraSection.classList.add('fa-close')
 
     input.placeholder = "Column"
-    min.placeholder = "Minimum"
-    max.placeholder = "Maximum"
 
     // Afegim els diferents elements al document
     buttonsDiv.appendChild(divisorDiv)
@@ -125,11 +119,21 @@ addButton.addEventListener('click', function() {
         // Afegim la informació necessària depenent del tipus de dada
         switch (select.value) {
             case 'Number': {
+                // Creem els elements max i min, que serviran per delimitar els rangs de dades
+                let max = document.createElement('input')
+                let min = document.createElement('input')
+
                 let minDiv = document.createElement('div')
                 let maxDiv = document.createElement('div')
 
                 let minLabel = document.createElement('label')
                 let maxLabel = document.createElement('label')
+
+                max.name = 'max'
+                min.name = 'min'
+
+                min.placeholder = "Minimum"
+                max.placeholder = "Maximum"
 
                 minLabel.innerHTML = "Minimum: "
                 maxLabel.innerHTML = "Maximum: "
@@ -143,11 +147,21 @@ addButton.addEventListener('click', function() {
                 break
             }
             case 'Date': {
+                // Creem els elements max i min, que serviran per delimitar els rangs de dades
+                let max = document.createElement('input')
+                let min = document.createElement('input')
+
                 let minDiv = document.createElement('div')
                 let maxDiv = document.createElement('div')
 
                 let minLabel = document.createElement('label')
                 let maxLabel = document.createElement('label')
+
+                max.name = 'max'
+                min.name = 'min'
+
+                min.placeholder = "Minimum"
+                max.placeholder = "Maximum"
                 
                 minLabel.innerHTML = "Minimum: "
                 maxLabel.innerHTML = "Maximum: "
