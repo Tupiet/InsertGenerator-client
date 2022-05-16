@@ -161,9 +161,10 @@ label {
                 & > div {
                     display: flex;
                     align-items: center;
+                    margin-bottom: 0.5em;
 
-                    & input[type="checkbox"] {
-                        margin-left: 1em;
+                    & input {
+                        margin-left: 0.5em;
                     }
                 }
             }
