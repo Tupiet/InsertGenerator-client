@@ -81,9 +81,6 @@ addButton.addEventListener('click', function() {
     extraHeader.appendChild(closeExtraSection)
     closeExtraSection.appendChild(closeExtraSectionIcon)
 
-    // Afegeix la informació 
-    removeAndAdd()
-
     // Afegim un EventListener al select, per poder-nos canviar la informació extra d'acord al que ens demanen
     select.addEventListener('change', function () {
         // Elimina tot el que hi hagi i actualitza les dades a les actuals
@@ -118,6 +115,44 @@ addButton.addEventListener('click', function() {
 
         // Afegim la informació necessària depenent del tipus de dada
         switch (select.value) {
+            case 'Name': {
+                let name = document.createElement('input')
+                let firstSurname = document.createElement('input')
+                let lastSurname = document.createElement('input')
+
+                let nameDiv = document.createElement('div')
+                let firstSurnameDiv = document.createElement('div')
+                let lastSurnameDiv = document.createElement('div')
+
+                let nameLabel = document.createElement('label')
+                let firstSurnameLabel = document.createElement('label')
+                let lastSurnameLabel = document.createElement('label')
+
+                name.name = 'name'
+                firstSurname.name = 'firstSurname'
+                lastSurname.name = 'lastSurname'
+
+                name.type = 'checkbox'
+                firstSurname.type = 'checkbox'
+                lastSurname.type = 'checkbox'
+
+                name.checked = true;
+
+                nameLabel.innerHTML = "Name: "
+                firstSurnameLabel.innerHTML = "First surname: "
+                lastSurnameLabel.innerHTML = "Last surname: "
+
+                extraMainDiv.appendChild(nameDiv)
+                nameDiv.appendChild(nameLabel)
+                nameDiv.appendChild(name)
+                extraMainDiv.appendChild(firstSurnameDiv)
+                firstSurnameDiv.appendChild(firstSurnameLabel)
+                firstSurnameDiv.appendChild(firstSurname)
+                extraMainDiv.appendChild(lastSurnameDiv)
+                lastSurnameDiv.appendChild(lastSurnameLabel)
+                lastSurnameDiv.appendChild(lastSurname)
+                break
+            }
             case 'Number': {
                 // Creem els elements max i min, que serviran per delimitar els rangs de dades
                 let max = document.createElement('input')
@@ -179,6 +214,9 @@ addButton.addEventListener('click', function() {
                 break
         }
     }
+
+    // Afegeix la informació 
+    removeAndAdd()
 })
 
 // Afegim un EventListener al botó generateButton, que s'activarà quan es doni clic al botó de generar l'SQL
@@ -280,20 +318,6 @@ function collectData() {
         let extraMain = newDiv.children[1]
         let extraMainDiv = extraMain.children[0]
 
-        let extraMinDiv = extraMainDiv.children[0]
-        let extraMaxDiv = extraMainDiv.children[1]
-
-        let max
-        let min
-        //let format
-
-        // Si existeix newDiv (el div que conté la informació extra), afegirem la informació
-        if (extraMinDiv) {
-            min = extraMinDiv.children[1]
-            max = extraMaxDiv.children[1]
-            //format = newDiv.children[2]
-        }
-
         // Si el nom de l'element aleatori a rebre està buit, avisa
         if (!input.value) {
             console.log("Empty value! Not sent")
@@ -309,9 +333,33 @@ function collectData() {
                 type: option.value
             }
 
-            if (min || max) {
-                toSend['min'] = min.value
-                toSend['max'] = max.value
+            switch (option.value) {
+                case 'Name': {
+                    let extraNameDiv = extraMainDiv.children[0]
+                    let extraFirstSurnameDiv = extraMainDiv.children[1]
+                    let extraLastSurnameDiv = extraMainDiv.children[2]
+
+                    let name = extraNameDiv.children[1]
+                    let firstSurname = extraFirstSurnameDiv.children[1]
+                    let lastSurname = extraLastSurnameDiv.children[1]
+
+                    toSend['name'] = name.checked
+                    toSend['firstSurname'] = firstSurname.checked
+                    toSend['lastSurname'] = lastSurname.checked
+                    break
+                }
+                case 'Number':
+                case 'Date': {
+                    let extraMinDiv = extraMainDiv.children[0]
+                    let extraMaxDiv = extraMainDiv.children[1]
+    
+                    let max = extraMinDiv.children[1]
+                    let min = extraMaxDiv.children[1]
+
+                    toSend['min'] = min.value
+                    toSend['max'] = max.value
+                    break
+                }
             }
 
             /*if (format) {

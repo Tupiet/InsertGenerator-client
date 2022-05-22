@@ -10252,6 +10252,14 @@ label {
   align-items: flex-start;
   flex-direction: column;
 }
+.divisorDiv .extraDiv main #extraOptions > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+}
+.divisorDiv .extraDiv main #extraOptions > div input {
+  margin-left: 0.5em;
+}
 .divisorDiv #showExtra {
   width: 2.2em;
   height: 2.2em;
