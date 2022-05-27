@@ -1,3 +1,6 @@
+// TODO: Correu -> llista de dominis
+// TODO: Custom -> x a cada element
+
 let addButton = document.getElementById('addButton')
 let buttonsDiv = document.getElementById('buttonsDiv')
 let quantity = document.getElementById('quantity')
@@ -31,11 +34,10 @@ addButton.addEventListener('click', function() {
 
     // Creem un altre div, que contindrà la informació extra
     let extraSection = document.createElement('section')
-    let extraHeader = document.createElement('header')
     let extraMain = document.createElement('main')
+    let extraFooter = document.createElement('footer')
     let extraMainDiv = document.createElement('div')
     let closeExtraSection = document.createElement('button')
-    let closeExtraSectionIcon = document.createElement('i')
 
     // Creem un input i un select, que serviran per posar el nom de l'element i el tipus (nom, número, etc)
     let input = document.createElement('input')
@@ -67,8 +69,7 @@ addButton.addEventListener('click', function() {
     showExtraIcon.classList.add('fa-solid')
     showExtraIcon.classList.add('fa-info')
 
-    closeExtraSection.classList.add('fa-solid')
-    closeExtraSection.classList.add('fa-close')
+    closeExtraSection.innerHTML = "OK"
 
     input.placeholder = "Column"
 
@@ -82,11 +83,10 @@ addButton.addEventListener('click', function() {
 
     extraSection.classList.add("hidden")
     divisorDiv.appendChild(extraSection)
-    extraSection.appendChild(extraHeader)
     extraSection.appendChild(extraMain)
+    extraSection.appendChild(extraFooter)
     extraMain.appendChild(extraMainDiv)
-    extraHeader.appendChild(closeExtraSection)
-    closeExtraSection.appendChild(closeExtraSectionIcon)
+    extraFooter.appendChild(closeExtraSection)
 
     // Afegim un EventListener al select, per poder-nos canviar la informació extra d'acord al que ens demanen
     select.addEventListener('change', function () {
@@ -234,8 +234,20 @@ addButton.addEventListener('click', function() {
                 customDiv.id = "customDiv"
 
                 customAdd.addEventListener('click', function() {
-                    let customInput = document.createElement('input')
-                    customDiv.appendChild(customInput)
+                    let customElementDiv = document.createElement('div')
+                    let customElementButton = document.createElement('button')
+                    let customElementInput = document.createElement('input')
+
+                    customElementButton.innerHTML = `<i class="fa-solid fa-close"></i>`
+                    customElementButton.classList.add('deleteButton')
+
+                    customElementButton.addEventListener('click', () => {
+                        customElementDiv.remove()
+                    })
+
+                    customDiv.appendChild(customElementDiv)
+                    customElementDiv.appendChild(customElementInput)
+                    customElementDiv.appendChild(customElementButton)
                 })
                 
                 extraMainDiv.appendChild(customP)
@@ -352,7 +364,7 @@ function collectData() {
         let input = this.children[0]
         let option = this.children[1]
         let newDiv = this.children[4]
-        let extraMain = newDiv.children[1]
+        let extraMain = newDiv.children[0]
         let extraMainDiv = extraMain.children[0]
 
         // Si el nom de l'element aleatori a rebre està buit, avisa
@@ -405,7 +417,7 @@ function collectData() {
 
                     childrens.forEach(item => {
                         console.log(item)
-                        customArray.push(item.value)
+                        customArray.push(item.children[0].value)
                     })
 
                     request.custom[`${input.value}`] = customArray

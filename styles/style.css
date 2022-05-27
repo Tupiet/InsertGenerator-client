@@ -10203,44 +10203,19 @@ label {
   justify-content: flex-start;
   align-items: flex-start;
 }
-.divisorDiv .extraDiv header {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-}
-.divisorDiv .extraDiv header button {
-  width: 2.2em;
-  height: 2.2em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 0;
-  background: #efefef;
-  border-radius: 8px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
-  transition: background-color 0.5s ease;
-  cursor: pointer;
-  font-size: 1.2em;
-  margin: 1em;
-}
-.divisorDiv .extraDiv header button:hover {
-  background-color: #dcdcdc;
-}
 .divisorDiv .extraDiv main {
   overflow: auto;
   position: relative;
   width: 100%;
-  height: 90%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-bottom: 3em;
+  margin-top: 3em;
 }
 .divisorDiv .extraDiv main #extraOptions {
   width: 100%;
-  height: 90%;
+  height: 100%;
   margin-left: 3em;
   margin-right: 3em;
   border-radius: 10px;
@@ -10259,6 +10234,35 @@ label {
 }
 .divisorDiv .extraDiv main #extraOptions > div input {
   margin-left: 0.5em;
+}
+.divisorDiv .extraDiv footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.divisorDiv .extraDiv footer button {
+  width: 2.2em;
+  height: 2.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  background: #efefef;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin: 1em;
+  padding-left: 1.2em;
+  padding-right: 1.2em;
+}
+.divisorDiv .extraDiv footer button:hover {
+  background-color: #dcdcdc;
 }
 .divisorDiv #showExtra {
   width: 2.2em;
@@ -10506,6 +10510,9 @@ select {
 #customDiv input {
   margin-bottom: 1em;
 }
+#customDiv input:focus {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
 
 .deleteButton {
   width: 2.2em;
@@ -10535,14 +10542,16 @@ select {
 [data-title]:after {
   content: attr(data-title);
   background-color: #e5e5e5;
+  font-size: 0.8em;
+  font-family: "Lato", sans-serif;
   color: #111;
   position: absolute;
-  padding: 1px 5px 2px 5px;
+  padding: 1px 7px 2px 7px;
   bottom: -1.9em;
   white-space: nowrap;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   opacity: 0;
-  border-radius: 10px;
+  border-radius: 7px;
   z-index: 6;
   visibility: hidden;
 }
