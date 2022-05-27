@@ -10477,6 +10477,55 @@ select {
   outline: 3px solid transparent;
 }
 
+#customAdd {
+  width: 2.2em;
+  height: 2.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  background: #efefef;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+#customAdd:hover {
+  background-color: #dcdcdc;
+}
+
+#customDiv {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+#customDiv p {
+  margin: 0;
+}
+#customDiv input {
+  margin-bottom: 1em;
+}
+
+.deleteButton {
+  width: 2.2em;
+  height: 2.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  background: #efefef;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 1em;
+}
+.deleteButton:hover {
+  background-color: #dcdcdc;
+}
+
 [data-title]:hover:after {
   opacity: 1;
   transition: all 0.1s ease 0.5s;

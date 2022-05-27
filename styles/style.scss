@@ -338,6 +338,30 @@ select {
     outline: 3px solid transparent;
 }
 
+#customAdd {
+    @include buttonStyle(2.2em, 2.2em);
+    margin-bottom: 1em;
+}
+
+#customDiv {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+
+    & p {
+        margin: 0;
+    } 
+    & input {
+        margin-bottom: 1em;
+    }
+}
+
+.deleteButton {
+    @include buttonStyle(2.2em, 2.2em);
+    display: inline-block;
+    margin-left: 1em;
+}
+
 [data-title]:hover:after {
     opacity: 1;
     transition: all 0.1s ease 0.5s;

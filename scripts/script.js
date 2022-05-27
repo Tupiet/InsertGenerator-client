@@ -15,12 +15,13 @@ let codeResult = document.getElementById('codeResult')
 let overlay = document.getElementById('overlay')
 let loading = document.getElementById('loading')
 
-let options = ['Name', 'Number', 'Street', 'Email', 'DNI', 'Phone (house)', 'Phone (mobile)', 'Date']
+let options = ['Name', 'Number', 'Street', 'Email', 'DNI', 'Phone (house)', 'Phone (mobile)', 'Date', 'Custom']
 
 // Aquest és l'element que s'enviarà al servidor
 let request = {
-    info:  { },
-    data:  { }
+    info:   { },
+    data:   { },
+    custom: { }
 }
 
 // Quan es faci clic al botó d'afegir un nou element
@@ -44,6 +45,9 @@ addButton.addEventListener('click', function() {
     let showExtra = document.createElement('button')
     let showExtraIcon = document.createElement('i')
 
+    // Creem un botó, que s'encarregarà d'eliminar aquest objecte
+    let deleteButton = document.createElement('button')
+
     //let format = document.createElement('input')
 
     // Donarem un nom a aquests atributs
@@ -52,12 +56,14 @@ addButton.addEventListener('click', function() {
     showExtra.id = 'showExtra'
     extraMainDiv.id = 'extraOptions'
     
+    deleteButton.innerHTML = `<i class="fa-solid fa-trash-can"></i>`
     
     //format.name = 'format'
     
     // Donarem unes classes i altres detalls als divs i elements
     divisorDiv.className = "divisorDiv"
     extraSection.className = "extraDiv"
+    deleteButton.className = "deleteButton"
     showExtraIcon.classList.add('fa-solid')
     showExtraIcon.classList.add('fa-info')
 
@@ -71,6 +77,7 @@ addButton.addEventListener('click', function() {
     divisorDiv.appendChild(input)
     divisorDiv.appendChild(select)
     divisorDiv.appendChild(showExtra)
+    divisorDiv.appendChild(deleteButton)
     showExtra.appendChild(showExtraIcon)
 
     extraSection.classList.add("hidden")
@@ -95,6 +102,10 @@ addButton.addEventListener('click', function() {
     closeExtraSection.addEventListener('click', function() {
         overlay.classList.add('hidden')
         extraSection.classList.add('hidden')
+    })
+
+    deleteButton.addEventListener('click', function() {
+        divisorDiv.remove()
     })
 
     // Afegim cada opció al select
@@ -210,7 +221,32 @@ addButton.addEventListener('click', function() {
                 //newDiv.appendChild(format)
                 break
             }
+            case 'Custom': {
+                let customP = document.createElement('p')
+                let customAdd = document.createElement('button')
+                let customDiv = document.createElement('div')
+
+                customP.innerHTML = "Add the values you want to be selected randomly!"
+
+                customAdd.innerHTML = `<i class="fa-solid fa-add"></i>`
+                customAdd.id = "customAdd"
+
+                customDiv.id = "customDiv"
+
+                customAdd.addEventListener('click', function() {
+                    let customInput = document.createElement('input')
+                    customDiv.appendChild(customInput)
+                })
+                
+                extraMainDiv.appendChild(customP)
+                extraMainDiv.appendChild(customAdd)
+                extraMainDiv.appendChild(customDiv)
+                break
+            }
             default:
+                let pElement = document.createElement('p')
+                pElement.innerHTML = "There's no customization for this data"
+                extraMainDiv.appendChild(pElement)
                 break
         }
     }
@@ -302,8 +338,9 @@ copyButton.addEventListener('click', function() {
 function collectData() {
     // Fem un reset al request
     request = {
-        info:  { },
-        data:  { }
+        info:   { },
+        data:   { },
+        custom: { }
     }
     // Afegim a l'apartat info la quantitat d'inserts que volem rebre
     request.info.quantity = quantity.value
@@ -314,7 +351,7 @@ function collectData() {
 
         let input = this.children[0]
         let option = this.children[1]
-        let newDiv = this.children[3]
+        let newDiv = this.children[4]
         let extraMain = newDiv.children[1]
         let extraMainDiv = extraMain.children[0]
 
@@ -360,6 +397,19 @@ function collectData() {
                     toSend['max'] = max.value
                     break
                 }
+                case 'Custom': {
+                    //request.custom['first']
+                    let customArray = []
+                    let customDiv = extraMainDiv.children[2]
+                    let childrens = Array.from(customDiv.children)
+
+                    childrens.forEach(item => {
+                        console.log(item)
+                        customArray.push(item.value)
+                    })
+
+                    request.custom[`${input.value}`] = customArray
+                } 
             }
 
             /*if (format) {
