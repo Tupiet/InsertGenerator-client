@@ -10504,14 +10504,14 @@ select {
   flex-wrap: wrap;
   overflow: auto;
 }
+#customDiv div {
+  padding: 20px;
+}
 #customDiv p {
   margin: 0;
 }
 #customDiv input {
   margin-bottom: 1em;
-}
-#customDiv input:focus {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .deleteButton {

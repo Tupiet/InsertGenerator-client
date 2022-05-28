@@ -1,5 +1,4 @@
 // TODO: Correu -> llista de dominis
-// TODO: Custom -> x a cada element
 
 let addButton = document.getElementById('addButton')
 let buttonsDiv = document.getElementById('buttonsDiv')
@@ -168,21 +167,30 @@ addButton.addEventListener('click', function() {
                 // Creem els elements max i min, que serviran per delimitar els rangs de dades
                 let max = document.createElement('input')
                 let min = document.createElement('input')
+                let autoincrement = document.createElement('input')
 
                 let minDiv = document.createElement('div')
                 let maxDiv = document.createElement('div')
+                let autoincrementDiv = document.createElement('div')
 
                 let minLabel = document.createElement('label')
                 let maxLabel = document.createElement('label')
+                let autoincrementLabel = document.createElement('label')
+
+                let br = document.createElement('br')
 
                 max.name = 'max'
                 min.name = 'min'
+                autoincrement.name = 'autoincrement'
 
                 min.placeholder = "Minimum"
                 max.placeholder = "Maximum"
 
+                autoincrement.type = 'checkbox'
+
                 minLabel.innerHTML = "Minimum: "
                 maxLabel.innerHTML = "Maximum: "
+                autoincrementLabel.innerHTML = "Autoincrement: "
 
                 extraMainDiv.appendChild(minDiv)
                 minDiv.appendChild(minLabel)
@@ -190,6 +198,10 @@ addButton.addEventListener('click', function() {
                 extraMainDiv.appendChild(maxDiv)
                 maxDiv.appendChild(maxLabel)
                 maxDiv.appendChild(max)
+                extraMainDiv.appendChild(br)
+                extraMainDiv.appendChild(autoincrementDiv)
+                autoincrementDiv.appendChild(autoincrementLabel)
+                autoincrementDiv.appendChild(autoincrement)
                 break
             }
             case 'Date': {
@@ -397,7 +409,20 @@ function collectData() {
                     toSend['lastSurname'] = lastSurname.checked
                     break
                 }
-                case 'Number':
+                case 'Number': {
+                    let extraMinDiv = extraMainDiv.children[0]
+                    let extraMaxDiv = extraMainDiv.children[1]
+                    let extraAutoincrementDiv = extraMainDiv.children[3]
+    
+                    let min = extraMinDiv.children[1]
+                    let max = extraMaxDiv.children[1]
+                    let autoincrement = extraAutoincrementDiv.children[1]
+
+                    toSend['min'] = min.value
+                    toSend['max'] = max.value
+                    toSend['autoincrement'] = autoincrement.checked
+                    break
+                }
                 case 'Date': {
                     let extraMinDiv = extraMainDiv.children[0]
                     let extraMaxDiv = extraMainDiv.children[1]

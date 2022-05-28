@@ -353,14 +353,15 @@ select {
     flex-wrap: wrap;
     overflow: auto;
 
+    div {
+        padding: 20px;
+    }
+
     & p {
         margin: 0;
     } 
     & input {
         margin-bottom: 1em;
-        &:focus {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        }
     }
 }
 
